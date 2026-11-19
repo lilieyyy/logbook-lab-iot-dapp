@@ -1,36 +1,31 @@
-# Logbook Lab IoT — Flutter & Ethereum Sepolia
+# Logbook Lab IoT dengan Flutter & Ethereum Sepolia
 
-Aplikasi logbook peminjaman alat laboratorium IoT berbasis **Flutter Web** yang terhubung ke smart contract Solidity di blockchain **Ethereum Sepolia Testnet**. Data peminjaman dibaca dari blockchain, sedangkan transaksi penambahan, pengembalian, dan penghapusan dikonfirmasi melalui **MetaMask**.
+Aplikasi logbook peminjaman alat laboratorium IoT berbasis Flutter yang terhubung ke smart contract Solidity di blockchain Ethereum Sepolia Testnet. Data peminjaman dibaca dari blockchain, lalu transaksi penambahan, pengembalian, dan penghapusan dikonfirmasi melalui MetaMask.
 
-Proyek ini dibuat untuk tugas mata kuliah **Pemrograman Mobile 2**.
+Proyek ini dilakukan untuk memenuhi tugas mata kuliah Pemrograman Mobile 2.
 
-## Fitur
-
-- Menghubungkan wallet MetaMask pada jaringan Sepolia.
+**Fitur Aplikasi:**
+- Menghubungkan dari wallet MetaMask pada jaringan Sepolia.
 - Menampilkan daftar peminjaman alat dari smart contract.
-- Menambahkan peminjaman baru (nama alat dan nama peminjam).
+- Menambah peminjaman baru (nama alat dan nama peminjam).
 - Menandai alat sudah dikembalikan.
-- Menghapus log peminjaman (hanya oleh pembuat log).
-- Menyegarkan daftar dan menampilkan status atau pesan kesalahan transaksi.
+- Menghapus log peminjaman (hanya pembuat log).
+- Me-refresh daftar peminjaman dan menampilkan status atau pesan kesalahan transaksi.
 
-> **Catatan:** Penghapusan log pada kontrak menggunakan penggeseran indeks array. Karena itu ID log dapat berubah setelah penghapusan.
+> Notes: Penghapusan log pada kontrak menggunakan penggeseran indeks array, karena itu ID log dapat berubah setelah penghapusan.
 
-## Teknologi
-
-- **Flutter / Dart** — antarmuka aplikasi web.
-- **Solidity ^0.8.20** — smart contract `LogbookLabIoT`.
-- **Ethereum Sepolia Testnet** — jaringan pengujian.
-- **MetaMask** — koneksi wallet dan penandatanganan transaksi.
-- **web3dart** dan **http** — pembacaan smart contract melalui RPC.
-- **Remix IDE** — kompilasi dan deployment smart contract.
-
-Versi Flutter dan versi paket yang tepat dapat dilihat dengan `flutter --version` dan pada `pubspec.lock` di repositori.
+## Library dan Ekstensi:
+- **Flutter / Dart** sebagai interface aplikasi.
+- **Solidity ^0.8.20** sebagai smart contract `LogbookLabIoT`.
+- **Ethereum Sepolia Testnet** sebagai jaringan penguji.
+- **MetaMask** sebagai koneksi wallet dan persetujuan transaksi.
+- **web3dart** dan **http** sebagai pembacaan smart contract melalui RPC.
+- **Remix IDE** sebagai kompilasi dan deployment smart contract.
 
 ## Informasi smart contract
-
 | Komponen | Nilai |
 | --- | --- |
-| Nama kontrak | `LogbookLabIoT` |
+| Nama kontrak | `Logbook Lab IoT` |
 | Jaringan | Ethereum Sepolia Testnet |
 | Chain ID | `11155111` |
 | Alamat kontrak | `0xbD984854a14D65264b6bd4FcFD69dF96a195A0f0` |
@@ -38,7 +33,6 @@ Versi Flutter dan versi paket yang tepat dapat dilihat dengan `flutter --version
 | Explorer | [Lihat kontrak di Sepolia Etherscan](https://sepolia.etherscan.io/address/0xbD984854a14D65264b6bd4FcFD69dF96a195A0f0) |
 
 Fungsi utama smart contract:
-
 | Fungsi | Kegunaan |
 | --- | --- |
 | `jumlahLog()` | Membaca jumlah log peminjaman |
@@ -50,15 +44,13 @@ Fungsi utama smart contract:
 Setiap log menyimpan nama alat, nama peminjam, status pengembalian, waktu pinjam, dan alamat wallet pembuat. Kontrak saat ini **tidak menyimpan waktu kembali secara terpisah**.
 
 ## Persiapan
-
-1. Instal **Flutter SDK** dan **VS Code** atau editor lain.
-2. Instal **Google Chrome** dan ekstensi **MetaMask** pada profil Chrome yang sama.
-3. Siapkan akun MetaMask khusus testnet dan pilih jaringan **Sepolia**.
-4. Siapkan sedikit **Sepolia ETH** dari faucet untuk biaya transaksi pengujian.
+1. Menyiapkan Flutter SDK dan VS Code.
+2. Instal ekstensi MetaMask pada profil Chrome yang sama digunakan untuk pengujian.
+3. Siapkan akun MetaMask khusus testnet dan pilih jaringan Sepolia.
+4. Siapkan sedikit saldo Sepolia ETH dari faucet untuk biaya transaksi pengujian.
 5. Pastikan konfigurasi `lib/config.dart` menunjuk ke RPC dan alamat kontrak di atas serta memuat ABI yang sesuai.
 
 ## Cara menjalankan
-
 Buka terminal pada folder utama proyek (folder yang berisi `pubspec.yaml`), kemudian jalankan:
 
 ```bash
@@ -96,7 +88,6 @@ README.md         # Dokumentasi proyek
 Sertakan juga berkas sumber **`.sol`** smart contract dalam repositori untuk memenuhi kebutuhan dokumentasi tugas. Lokasi berkas Solidity mengikuti struktur repositori masing-masing.
 
 ## Keamanan
-
 - **Jangan pernah menyimpan private key atau seed phrase** di `main.dart`, `config.dart`, README, maupun GitHub.
 - Transaksi Flutter Web menggunakan MetaMask agar penandatanganan dilakukan oleh wallet, bukan dengan menanam private key ke aplikasi.
 - Jangan mengandalkan `--dart-define` untuk menyembunyikan private key dalam aplikasi web yang didistribusikan.
@@ -105,13 +96,10 @@ Sertakan juga berkas sumber **`.sol`** smart contract dalam repositori untuk mem
 - Jika private key pernah terunggah atau dibagikan, anggap sudah bocor dan gunakan wallet baru.
 
 ## Batasan dan pengembangan
-
 Implementasi MetaMask pada kode Flutter ini ditujukan untuk **Flutter Web**. Dukungan Android/APK memerlukan integrasi wallet khusus perangkat seluler dan pengujian tambahan; versi web tidak otomatis menjadi aplikasi Android yang dapat menandatangani transaksi. Fitur lanjutan yang memungkinkan antara lain filter log, pembaruan otomatis dari event smart contract, dan pencatatan waktu kembali.
 
 ## Pengujian
-
 Skenario pengujian yang disarankan:
-
 1. `jumlahLog()` di Remix mengembalikan jumlah data yang sesuai.
 2. `ambilLog(0)` mengembalikan detail log pertama bila jumlah log lebih dari nol.
 3. Menambahkan peminjaman melalui Flutter menghasilkan transaksi **Success** di Etherscan.
@@ -119,11 +107,8 @@ Skenario pengujian yang disarankan:
 5. Aksi pengembalian dan penghapusan hanya dapat dilakukan oleh wallet pembuat log.
 
 ## Referensi
-
 - [Flutter](https://docs.flutter.dev/)
 - [Solidity](https://docs.soliditylang.org/)
 - [Remix IDE](https://remix.ethereum.org/)
 - [MetaMask](https://metamask.io/)
 - [Sepolia Etherscan](https://sepolia.etherscan.io/)
-
-Dokumentasi ini disusun untuk proyek pembelajaran Flutter dan blockchain Sepolia. Jika kode diadaptasi dari tutorial atau sumber lain, cantumkan atribusi yang sesuai di bagian ini.
